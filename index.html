@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BON TOOL - LC79</title>
+<!-- Nhúng file CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- GAME IFRAME -->
+<iframe id="game" src="https://lc79.bet" allow="fullscreen; autoplay"></iframe>
+
+<!-- ĐỒNG HỒ ĐẾM NGƯỢC -->
+<div id="expiry-timer">Thời gian: Đang tải...</div>
+
+<!-- GIAO DIỆN ĐĂNG NHẬP -->
+<div id="login-wrapper">
+  <div class="login-container">
+    <div class="header">
+      <div class="logo-box">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="logo-text">
+          <h1>BON TOOL</h1>
+          <p>LC79 • ACCESS</p>
+        </div>
+      </div>
+      <div class="status-badge">
+        <div class="status-dot"></div> ĐANG BẢO VỆ
+      </div>
+    </div>
+
+    <div class="hero-icon">
+      <div class="orbit"></div>
+      <svg viewBox="0 0 100 120" width="120" height="140">
+        <defs>
+          <linearGradient id="drop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#38bdf8" />
+            <stop offset="100%" stop-color="#2563eb" />
+          </linearGradient>
+        </defs>
+        <path d="M50 5 C 50 5, 90 65, 90 90 A 40 40 0 0 1 10 90 C 10 65, 50 5, 50 5 Z" fill="url(#drop)" />
+        <circle cx="40" cy="80" r="4" fill="#0f172a" />
+        <circle cx="60" cy="80" r="4" fill="#0f172a" />
+        <circle cx="39" cy="79" r="1.5" fill="#fff" />
+        <circle cx="59" cy="79" r="1.5" fill="#fff" />
+        <ellipse cx="32" cy="88" rx="5" ry="3" fill="#ffb3c6" opacity="0.8" />
+        <ellipse cx="68" cy="88" rx="5" ry="3" fill="#ffb3c6" opacity="0.8" />
+        <path d="M45 88 Q50 94 55 88" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <div class="hero-text">
+      <div class="hero-sub">BON SYSTEM • LC79</div>
+      <div class="hero-title">Mở khóa <span>cuộc chơi.</span></div>
+      <div class="hero-desc">Nhập key để tiếp tục vào LC79.</div>
+    </div>
+
+    <div id="error-msg"></div>
+    <div class="input-label">MÃ TRUY CẬP</div>
+    <div class="input-box">
+      <input type="text" id="input-key" placeholder="BON-XXXX-XXXX-XXXX">
+      <button class="btn-paste" onclick="pasteKey()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Dán
+      </button>
+    </div>
+
+    <button class="btn-submit" id="btn-submit" onclick="handleActivate()">
+      <span id="btnText">VÀO HỆ THỐNG</span>
+      <div class="arrow">→</div>
+    </button>
+
+    <div class="pricing-box">
+      <div class="pricing-title">BẢNG GIÁ VIP</div>
+      <div class="pricing-grid">
+        <div class="price-item"><span>1 Ngày</span><span>35K</span></div>
+        <div class="price-item"><span>1 Tuần</span><span>60K</span></div>
+        <div class="price-item"><span>1 Tháng</span><span>120K</span></div>
+        <div class="price-item"><span>Vĩnh Viễn</span><span>190K</span></div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step active"><div class="step-num">1</div> Nhập key</div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">2</div> Xác thực</div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">3</div> Vào game</div>
+    </div>
+    <div class="help-text">Chưa có key? <a href="https://t.me/cskhleminh" target="_blank">Liên hệ Telegram</a></div>
+  </div>
+</div>
+
+<!-- ROBOT (HIỂN THỊ KHI CÓ KEY) -->
+<div id="robot-container">
+  <section id="robot" class="rbt" data-side="tai" data-mood="think" aria-live="polite">
+    <div class="stage">
+      <svg viewBox="0 0 288 170" width="288" height="170" aria-hidden="true">
+        <!-- Dán toàn bộ phần SVG robot (defs, shapes, paths...) của bạn vào đây -->
+        <!-- (Tôi rút gọn phần này để bạn dễ nhìn, hãy copy nguyên phần SVG cũ dán vào) -->
+        <defs>
+          <!-- ... -->
+        </defs>
+        <!-- ... -->
+      </svg>
+      <div class="bw"><div class="bubble"><span class="dots"><i></i><i></i><i></i></span><span class="bt"></span></div></div>
+      <div class="cw">
+        <div class="card">
+          <small>Dự đoán</small>
+          <strong class="pred">—</strong>
+          <em class="phien">Phiên #—</em>
+          <div class="track"><i class="cbar"></i></div>
+          <div class="cf">Thuật toán <b class="cv">—</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Nhúng file JS -->
+<script src="script.js"></script>
+</body>
+</html>
