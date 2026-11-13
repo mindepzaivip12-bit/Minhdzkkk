@@ -1,4 +1,4 @@
-const API_SERVER = "https://bontooltxios.onrender.com"; 
+const API_SERVER = "https://lc79vipadmin.onrender.com"; 
 const API_PREDICT = "https://leminhapiii.onrender.com/lc79md5";
 
 const root = document.getElementById("robot");
