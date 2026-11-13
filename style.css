@@ -59,7 +59,44 @@ body { background: #e6f0fa; overflow: hidden; color: #333; height: 100vh; width:
 
 #error-msg { color: #ef4444; text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 10px; display: none; }
 
-#expiry-timer { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); border: 2px solid #3b82f6; border-radius: 20px; padding: 8px 20px; color: #2563eb; font-weight: bold; font-size: 13px; z-index: 100; display: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); white-space: nowrap; letter-spacing: 1px; }
+/* ================= ĐỒNG HỒ ĐẾM NGƯỢC (GÓC DƯỚI TRÁI) ================= */
+#expiry-timer {
+  position: fixed;
+  bottom: 20px; 
+  left: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00e5ff;
+  border-radius: 12px;
+  padding: 10px 18px;
+  color: #00e5ff;
+  font-size: 18px;
+  font-weight: 900;
+  z-index: 100; 
+  display: none; 
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.2);
+  letter-spacing: 1px;
+  font-family: monospace;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(5px);
+}
+@keyframes pulse-clock {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 229, 255, 0.8); border-color: #fff; }
+}
+#expiry-timer.active {
+  display: flex;
+  animation: pulse-clock 2s infinite;
+}
+#expiry-timer.warning {
+  border-color: #ff3333;
+  color: #ff3333;
+  box-shadow: 0 0 20px rgba(255, 51, 51, 0.6);
+  animation: none;
+}
+.clock-icon { font-size: 16px; animation: tick-tock 1s infinite alternate; }
+@keyframes tick-tock { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+@media (max-width: 500px) { #expiry-timer { bottom: 15px; left: 15px; font-size: 15px; padding: 8px 12px; } }
 
 /* ================= CSS ROBOT ================= */
 #robot-container { display: none; }
