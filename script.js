@@ -1,8 +1,21 @@
+<script>
+(function(){
+var __K="MySecretKey2024";
+    var __D = function(s){
+      var d = decodeURIComponent(escape(atob(s)));
+      var o = "";
+      for(var i=0;i<d.length;i++) o += String.fromCharCode(d.charCodeAt(i) ^ __K.charCodeAt(i % __K.length));
+      return o;
+    };
+  // Ghi đè atob/giải mã nếu cần — các chỗ đã mã hóa sẽ tự giải khi dùng
+  window.__decode = __D;
+})();
+</script>
 /* =========================================================
    CẤU HÌNH HỆ THỐNG
    ========================================================= */
-const API_SERVER = "https://lc79vipadmin.onrender.com"; 
-const API_PREDICT = "https://leminhapiii.onrender.com/lc79md5";
+const API_SERVER = "https://leminhadminios.onrender.com"; 
+const API_PREDICT = "https://leminhdzctemd5.onrender.com/lc79md5";
 
 const root = document.getElementById("robot");
 const expiryEl = document.getElementById('expiry-timer');
