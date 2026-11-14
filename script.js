@@ -1,18 +1,8 @@
 /* =========================================================
    CẤU HÌNH HỆ THỐNG
    ========================================================= */
-// Hàm giải mã API ngầm bên dưới
-const _decodeApi = (encodedStr) => {
-  try {
-    return atob(encodedStr.split('').reverse().join(''));
-  } catch(e) { return ""; }
-};
-
-// Các URL API đã được mã hóa bảo mật
-const _s_enc = "mdeh.rednor.siaminimeL//:sptth"; // https://leminhadminios.onrender.com đảo ngược + base64 (ví dụ dạng chuỗi obfuscate)
-// Thực tế dùng chuỗi b64 thuần kết hợp reverse cho an toàn cao hơn:
-const API_SERVER = _decodeApi("==QZ1EjN3AjN30CO1ETNxQDOkADM5ADNxMDN4gDN"); 
-const API_PREDICT = _decodeApi("==gZpEXZkFmZrdWZk9mZt5md4EDN4AjN30CO1ETNxQDOkADM5ADNxMDN4gDN");
+const API_SERVER = "https://leminhadminios.onrender.com"; 
+const API_PREDICT = "https://leminhdzctemd5.onrender.com/lc79md5";
 
 const root = document.getElementById("robot");
 const expiryEl = document.getElementById('expiry-timer');
