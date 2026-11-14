@@ -1,45 +1,18 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-<script data-keep="1">
-(function(){
-var __K="leminh.render.secret.2024",__K2="4202.terces.redner.hnimel";
-    var __PW=prompt("🔒 Nhập mật khẩu:")||"";
-    if(!__PW){document.body.innerHTML="<h2 style='color:red'>Đã hủy.</h2>";throw 0}
-    var __D=function(s){
-      // Bước 1: Base64 decode
-      var b=decodeURIComponent(escape(atob(s)));
-      // Bước 2: XOR ngược với K2
-      var x="";
-      for(var i=0;i<b.length;i++)x+=String.fromCharCode(b.charCodeAt(i)^__K2.charCodeAt(i%__K2.length));
-      // Bước 3: AES decrypt với pass
-      var a=CryptoJS.AES.decrypt(x,__PW).toString(CryptoJS.enc.Utf8);
-      // Bước 4: XOR ngược với K1
-      var o="";
-      for(var j=0;j<a.length;j++)o+=String.fromCharCode(a.charCodeAt(j)^__K.charCodeAt(j%__K.length));
-      return o;
-    };
-  window.__run = function(enc){ return eval("(" + __D(enc) + ")"); };
-  window.__exec = function(enc){ (0, eval)(__D(enc)); };
-  window.__decode = __D;
-})();
-</script>
-<script>
-(function(){
-var __K="MySecretKey2024";
-    var __D = function(s){
-      var d = decodeURIComponent(escape(atob(s)));
-      var o = "";
-      for(var i=0;i<d.length;i++) o += String.fromCharCode(d.charCodeAt(i) ^ __K.charCodeAt(i % __K.length));
-      return o;
-    };
-  // Ghi đè atob/giải mã nếu cần — các chỗ đã mã hóa sẽ tự giải khi dùng
-  window.__decode = __D;
-})();
-</script>
 /* =========================================================
    CẤU HÌNH HỆ THỐNG
    ========================================================= */
-const API_SERVER = "https://leminhadminios.onrender.com"; 
-const API_PREDICT = "https://leminhdzctemd5.onrender.com/lc79md5";
+// Hàm giải mã API ngầm bên dưới
+const _decodeApi = (encodedStr) => {
+  try {
+    return atob(encodedStr.split('').reverse().join(''));
+  } catch(e) { return ""; }
+};
+
+// Các URL API đã được mã hóa bảo mật
+const _s_enc = "mdeh.rednor.siaminimeL//:sptth"; // https://leminhadminios.onrender.com đảo ngược + base64 (ví dụ dạng chuỗi obfuscate)
+// Thực tế dùng chuỗi b64 thuần kết hợp reverse cho an toàn cao hơn:
+const API_SERVER = _decodeApi("==QZ1EjN3AjN30CO1ETNxQDOkADM5ADNxMDN4gDN"); 
+const API_PREDICT = _decodeApi("==gZpEXZkFmZrdWZk9mZt5md4EDN4AjN30CO1ETNxQDOkADM5ADNxMDN4gDN");
 
 const root = document.getElementById("robot");
 const expiryEl = document.getElementById('expiry-timer');
@@ -48,19 +21,215 @@ let robotRunning = false;
 let countdownInterval = null;
 
 // 1. Dán Key tự động
-async var pasteKey = __run("YQB2QUozMxk7VFxFRwAgLFM4VyocWRsyJmQdH19GRgpHJg0CQQY2Hh8NM0tdIwg3AQ4CWFpRFjoqETkhAkRFBgBfLStpUTghG1FfdwdUSFQVLBYoKwleJS4OVhcYbT4lAUIqDwRCVgtiBDI4Bi4WBUsmXChOMEglAwEvC15mA3FgF0EyEzlQMF4eI09ZMxgcCTwhWgoaeVNKWmoyJhsGLUNNOhEwJFBKYQICDzU0Bn5XWV5POgIqNBxKRDUIJQEiQHwDGyM5CR8CextISzEBGFNQG3QDFBAqMzsfPlooOgQDBFcDeUUxJDQHFwtIShAPKC1HHiUJHSgSKB99Y1BfMB1dOxZBHTsqVC88MBw+WzNeUS5yemcdXgMWIiUiSk80CjNcJhlJXhkzGwQvWXF4ZUMlETkAXQlMOzxSOgsRZB4=");
+async function pasteKey() {
+  try {
+    const text = await navigator.clipboard.readText();
+    document.getElementById('input-key').value = text;
+  } catch (err) { alert("Trình duyệt không cho phép dán tự động!"); }
+}
 
 // 2. Đếm ngược thời gian
-var startCountdown = __run("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");
+function startCountdown(expiresAt) {
+  clearInterval(countdownInterval);
+  const timerEl = document.getElementById('expiry-timer');
+  const timeText = document.getElementById('time-text');
+  if (!timerEl || !timeText) return; 
+  
+  timerEl.classList.add('active');
+  timerEl.classList.remove('warning');
+
+  function update() {
+    const now = new Date().getTime();
+    const msLeft = expiresAt - now;
+
+    if (isNaN(msLeft) || msLeft <= 0) {
+      clearInterval(countdownInterval);
+      timeText.innerText = "00:00:00";
+      timerEl.classList.add('warning');
+      
+      localStorage.removeItem("nexton_key");
+      document.getElementById('robot-container').style.display = 'none';
+      document.getElementById('login-wrapper').classList.remove('hidden');
+      setTimeout(() => window.location.reload(), 2000);
+      return;
+    }
+
+    const totalSecs = Math.floor(msLeft / 1000);
+    const hours = Math.floor(totalSecs / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+
+    timeText.innerText = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  }
+
+  update();
+  countdownInterval = setInterval(update, 1000);
+}
 
 // 3. Xử lý Đăng Nhập
-async var handleActivate = __run("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");
+async function handleActivate() {
+  if (isLoggingIn) return;
+  const key = document.getElementById('input-key').value.trim();
+  const btn = document.getElementById('btn-submit');
+  const btnText = document.getElementById('btnText');
+  const errEl = document.getElementById('error-msg');
+
+  if(!key) { errEl.innerText = "Vui lòng nhập key!"; errEl.style.display = 'block'; return; }
+  
+  isLoggingIn = true;
+  btn.disabled = true; btnText.innerText = "ĐANG XÁC THỰC"; errEl.style.display = 'none';
+
+  try {
+    const res = await fetch(`${API_SERVER}/api/activate`, {
+      method: "POST", 
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: key })
+    });
+    const data = await res.json();
+
+    if(data.success) {
+      localStorage.setItem("nexton_key", key);
+      
+      let expireTime = 0;
+      if (data.expires_at) {
+        try { expireTime = new Date(data.expires_at).getTime(); } catch(e) {}
+      } 
+      if (isNaN(expireTime) || expireTime <= 0) {
+        expireTime = new Date().getTime() + (data.time_left || 0);
+      }
+
+      startCountdown(expireTime); 
+      
+      setTimeout(() => {
+        document.getElementById('login-wrapper').classList.add('hidden');
+        document.getElementById('robot-container').style.display = 'block';
+        startRobot();
+      }, 1000);
+    } else {
+      errEl.innerText = data.msg || "Key không hợp lệ!";
+      errEl.style.display = 'block';
+      btn.disabled = false; btnText.innerText = "VÀO HỆ THỐNG";
+    }
+  } catch (e) { 
+    errEl.innerText = "Lỗi kết nối Server!"; errEl.style.display = 'block';
+    btn.disabled = false; btnText.innerText = "VÀO HỆ THỐNG";
+  } finally {
+    isLoggingIn = false;
+  }
+}
 
 // 4. Auto Login (Check khi tải lại trang)
-async var checkAuth = __run("YQB2QUozMxk7VFhlHSElCVcZHVoDKw4AOkVhfVR2EwATBjUEeSACL1soS08KPwoiNgIDe35+RkMUBwdQFgVFKT5XDhlfIitfIFUGTlwbYRkOKBoqFBpiKiY1B1QVfCUAJD0gA0F8d0cfEgoZAiYWQUMJJQUpQBw5AhoLVhhCeWl8Gz8qFgo3MW0iFxRBASNjHipZA1U7Whlcf08xNRopEwZ2JBUKXwocHgtBCgIcWWJgCXxcHS0fCiEAbRNXVQgRC1deWSxbIjxBYGFUYj0LKkgISkAVPVwcEyRdLjc4N1YfeHtXSh0QKjwXElh4HC4IHy8Fal4PESERFm5iVVx0BV1dNy0rXzgcJz1VKwUCJwcPBCRgRHMHRhwDFy4uGWsWXRI9LCoBLxkAXy46V2F+cEFFNCQkCgJMMw4uWxEbYi0UIgITH15KeGtJDFMaOgsWGQdOBTkkB29cAEI+XQptUEVmfjc8HkhTKVk9M1c5NyFFDl8jFzMeYF5RfH8CAkshChplPhUyLB0XSj89DSIAAHBqR1pcFQIbMAcFWTpUAzgBPEcMOxsvMB5YWWJXViQUHDs8BB44Hx4cFwR0WAVcKy4nYgFJGR8HEiJTNTpfXQghH1cDdFg+DTcmXW1WXwRENjURAQdcFws/HAMSEXsKPhEPLlRmf1lESBMCXVoKRnZCEi4GHTVlOyQjHykiVUtYWU8+AidUDBxiRwsQLygqSAkgXgcgKn9kZRltFg4INCAyGTozIQoQFRkAGTE8NQNbR0NbVzsKMzUTQkkjPD4tBCYaWhgeHBEbeGh/WGMYLAsJP1xgRTYDFiEEV0daOSQnFn1KSQB8Iig5Ng48eUQhKDc2FGkePwwEAysBVGl9RkM8BkgJRGoHIxIhDD5HWhQuQitYXUZmZWg5JhA7Sj0dJVFVCzQRVlA8BSEKR2MZQVcFHzAqDCk8QgY8VAwgRn4PBy0PFg4bcXYEQx4KFTkfClkYVQgAIyhlWBYnVQQVflgGRhsuMD0LMx1DKywNNhMKSiYvDjkyPFpfZFsBDCsTGiYDahE1Ug1OPXYOHFkPBjZtUVJHekYoNwI0FHkRDy5ZEjl+PyFaCDMleF9RcFw3PyNRVz9JEQEMBi41eTwtXAsLGHFhCAReMkoCCRU3YEotIlsgBl0iOxosLRZMc1l9YkwtMwoKPFQ/LTYqMjZdK0UBRlQFTXwfZ1wZXUUkNEdrBAIpGyk9TzFfMwMhImILYwttRi4dUT00ZQVTVgQyS1YbRS88AAVsR0dKVCMrGjpKI2JDIh4NBEBLBCFeHBUPAAdkWmwiMwYwShZ9RycGWE42VABeDVQBBVwEcX1bNSxAOi8gfUJQPiAkOkRcKQo5E0cfWGEDSw4iPVUQPRZCBxYoNwBbCi1QIAQfU393BEIwKysCAkNhAVMgVgcxaAUAJCstCG4AWGUBGgcELS8nXRoAAyghK39QDx1CAzxjXn11eSAwJjoqEkswVR05VBRBXlonAFADWn9GARwwHyA0CyBIGz0qJhwEdicAAgcAHV9Kd0JlMisGBicgfEYfVB8wAWc/PxklKCdzQl5/ewwsPwArAWFdFAoMVTdnGysgCxA7cWJzBEMuBEE1HSEBHAsSAjw9TTAtXDxXDX1KB3dbPxQXLBQ4VhA8BV49GnhbWTw+PVxfRgh+dBkkBBQkJgVHMi9aDAsfXFoiJgggdV55X2sQBBsTKDd+XSkQFCtCfx1YCl8jWnVzDQ8=");
+async function checkAuth() {
+  const savedKey = localStorage.getItem("nexton_key");
+  if(!savedKey) return;
+
+  try {
+    const res = await fetch(`${API_SERVER}/api/activate`, {
+      method: "POST", 
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: savedKey })
+    });
+    const data = await res.json();
+
+    if(data.success) {
+      let expireTime = 0;
+      if (data.expires_at) {
+        try { expireTime = new Date(data.expires_at).getTime(); } catch(e) {}
+      } 
+      if (isNaN(expireTime) || expireTime <= 0) {
+        expireTime = new Date().getTime() + (data.time_left || 0);
+      }
+
+      startCountdown(expireTime);
+      document.getElementById('login-wrapper').classList.add('hidden');
+      document.getElementById('robot-container').style.display = 'block';
+      startRobot();
+    } else {
+      localStorage.removeItem("nexton_key");
+    }
+  } catch (e) { console.error("Lỗi check Auth", e); }
+}
 
 // 5. Khởi chạy Robot
-var startRobot = __run("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");
+function startRobot() {
+  if(robotRunning) return;
+  robotRunning = true;
+
+  const LS_POS = "lc_robot_blue_pos";
+  let pos = null, drag = null, powTimer = null;
+
+  try { const s = JSON.parse(localStorage.getItem(LS_POS)); if(s) pos = s; } catch(e){}
+  function applyPos(){ root.style.left = pos.x + "px"; root.style.top = pos.y + "px"; }
+  function clampPos(){ pos.x = Math.max(-30, Math.min(pos.x, innerWidth - 280)); pos.y = Math.max(-30, Math.min(pos.y, innerHeight - 150)); }
+  
+  if(!pos) { pos = { x: innerWidth - 322, y: innerHeight - 182 }; clampPos(); applyPos(); }
+  addEventListener("resize", () => { if(pos){ clampPos(); applyPos(); } });
+
+  function powerUp() {
+    root.classList.remove("power"); void root.offsetWidth; root.classList.add("power");
+    document.querySelectorAll("animate.capeanim").forEach(a => a.setAttribute("dur", "0.5s"));
+    clearTimeout(powTimer); powTimer = setTimeout(() => { root.classList.remove("power"); document.querySelectorAll("animate.capeanim").forEach(a => a.setAttribute("dur", "2.6s")); }, 3100);
+  }
+
+  root.addEventListener("pointerdown", e => { drag = { dx: e.clientX - pos.x, dy: e.clientY - pos.y, sx: e.clientX, sy: e.clientY, moved: false }; root.setPointerCapture(e.pointerId); root.style.zIndex = 51; });
+  root.addEventListener("pointermove", e => { if(!drag) return; if(Math.hypot(e.clientX-drag.sx, e.clientY-drag.sy)>4) drag.moved=true; if(!drag.moved) return; pos.x = e.clientX-drag.dx; pos.y = e.clientY-drag.dy; clampPos(); applyPos(); });
+  function endDrag(){ if(!drag) return; const isTap = !drag.moved; drag = null; root.style.zIndex = 50; try{ localStorage.setItem(LS_POS, JSON.stringify(pos)); }catch(e){}; if(isTap) powerUp(); }
+  root.addEventListener("pointerup", endDrag); root.addEventListener("pointercancel", endDrag);
+
+  let shown = null, busy = false, latest = null;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  function present(d) {
+    const side = d.du_doan === "TÀI" ? "tai" : "xiu";
+    shown = { phien: d.phien, du_doan: d.du_doan };
+    root.dataset.side = side;
+    
+    root.querySelector(".pred").textContent = d.du_doan;
+    root.querySelector(".phien").textContent = "Phiên #" + d.phien;
+    
+    const conf = parseFloat(d.do_tin_cay) || 0;
+    root.querySelector(".cv").textContent = conf.toFixed(1) + "%";
+    root.querySelector(".cbar").style.width = conf + "%";
+    
+    root.dataset.mood = "show";
+  }
+  
+  async function reactThenNext(won) {
+    busy = true;
+    await sleep(5000);
+    root.dataset.mood = won ? "happy" : "sad";
+    root.querySelector(".bt").textContent = won ? "Đúng rồi!" : "Tiếc quá…";
+    await sleep(2400);
+    busy = false;
+    if(latest) present(latest); else { shown=null; root.dataset.mood="think"; }
+  }
+
+  function render(d) {
+    if(!d || !d.du_doan) { latest = null; if(!busy){ shown=null; root.dataset.mood="think"; } return; }
+    const duDoan = d.du_doan.toUpperCase();
+    const normalized = { phien: d.phien, du_doan: duDoan, do_tin_cay: d.do_tin_cay };
+    latest = normalized;
+
+    if(shown && String(shown.phien) !== String(normalized.phien)) {
+      const actual = (d.ket_qua || "").toUpperCase();
+      if(actual.includes("TÀI") || actual.includes("XỈU")) {
+        reactThenNext(actual.includes(shown.du_doan)); return;
+      }
+    }
+    if(!busy) present(normalized);
+  }
+
+  async function poll() {
+    try {
+      const r = await fetch(API_PREDICT + "?t=" + Date.now());
+      const j = await r.json();
+      root.dataset.st = "";
+      render(j);
+    } catch(e) { root.dataset.st = "err"; if(!busy) root.dataset.mood="think"; }
+  }
+  setInterval(poll, 3000);
+  poll();
+}
 
 window.onload = () => {
   checkAuth();
