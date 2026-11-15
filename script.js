@@ -3,7 +3,7 @@
    ========================================================= */
 
 // ⚠️ ĐỔI LINK NÀY THÀNH LINK PHP CỦA BẠN
-const API_SERVER = "https://leminhadminios.onrender.com";
+const API_SERVER = "http://bontooltxios.gamer.gd/api";";
 
 const API_ACTIVATE = `${API_SERVER}/activate.php`;
 const API_PREDICT  = `${API_SERVER}/predict.php`;
