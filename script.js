@@ -1,8 +1,9 @@
 /* =========================================================
    CẤU HÌNH HỆ THỐNG
    ========================================================= */
-const API_SERVER = "https://leminhadminios.onrender.com"; 
-const API_PREDICT = "https://leminhdzctemd5.onrender.com/lc79md5";
+const _dk = (s) => atob(s).split('').reverse().join('');
+const API_SERVER  = _dk("bW9jLm5yZWRucm8uc29pbmltaGFtaG5pZWwubW9jLy86c3B0dGg=");
+const API_PREDICT = _dk("NWRteTc5Y2wvbW9jLm5yZWRucm8uc29pbmltaGFtaG5pZWwubW9jLy86c3B0dGg=");
 
 const root = document.getElementById("robot");
 const expiryEl = document.getElementById('expiry-timer');
