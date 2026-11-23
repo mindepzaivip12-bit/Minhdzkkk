@@ -2,7 +2,7 @@
    BON TOOL - LC79 (Bản Full - Đã fix CORS & SSL)
    ========================================================= */
 
-const API_SERVER = "https://bontooltxios.gamer.gd/api"; // ⚠️ SỬA LINK NÀY
+const API_SERVER = "https://lc79vipadmin-5orx.onrender.com/api"; // ⚠️ SỬA LINK NÀY
 const API_ACTIVATE = `${API_SERVER}/activate.php`;
 const API_PREDICT  = `${API_SERVER}/predict.php`;
 
